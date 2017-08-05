@@ -9,7 +9,8 @@ console.log("HTTP BODY");
 
 const ID = process.env.ID;
 const LISTEN = process.env.LISTEN;
-
+// const ID = "1";
+// const LISTEN = "2";
 const currentRequests = {};
 
 socket.on('connect', function() {

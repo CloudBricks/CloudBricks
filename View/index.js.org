@@ -1,0 +1,154 @@
+// document.onload = function() {
+var socket = io.connect('http://localhost:9092');
+
+socket.on("connect", function() {
+    console.log("Connected");
+});
+
+Vue.component('module', {
+    // The todo-item component now accepts a
+    // "prop", which is like a custom attribute.
+    // This prop is called todo.
+    props: ['instance', 'instances', 'set'],
+    template: `
+        <li>
+            <div class="collapsible-header">{{instance.module.name}}{{instance.id}}</div>
+            <div class="collapsible-body">
+                    <ul class="collapsible" data-collapsible="expandable" v-if='instance.child'>
+                        <module v-bind:instance=instance.child v-bind:instances=instances v-bind:set=set>
+                        </module>
+                    </ul>
+                    <div v-if='!instance.child' v-on:click='instance.addChild = true'>
+                        <!-- Dropdown Trigger -->
+                        <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Add Consumer</a>
+
+                        <!-- Dropdown Structure -->
+                        <ul id='dropdown1' class='dropdown-content'>
+                            <li v-for="instance1 in instances" v-if="instance1.id!=instance.id" v-on:click="set(instance,instance1)">{{instance1.module.name}}{{instance1.id}}</li>
+                        </ul>
+
+
+                    </div>
+                </div>
+        </li>
+
+    `
+});
+var bind = {
+    rootNode: {
+        id: '1',
+        module: {
+            name: 'httpbodyserver',
+            'consume': true,
+            'emit': true
+        },
+        child: null,
+        parent: null
+    },
+
+    availableModules: [{
+            name: 'transformuppercase',
+            'consume': true,
+            'emit': true
+        },
+        {
+            name: 'httpbodyserver',
+            'consume': true,
+            'emit': true
+        }
+    ],
+    instances: [{
+            id: '1',
+            module: {
+                name: 'httpbodyserver',
+                'consume': true,
+                'emit': true
+            },
+            child: null,
+            parent: null
+        },
+        {
+            id: '2',
+            module: {
+                name: 'httpbodyserver',
+                'consume': true,
+                'emit': true
+            },
+            child: null,
+            parent: null
+        },
+        {
+            id: '3',
+            module: {
+                name: 'httpbodyserver',
+                'consume': true,
+                'emit': true
+            },
+            child: null,
+            parent: null
+        },
+        {
+            id: '4',
+            module: {
+                name: 'transformuppercase',
+                'consume': true,
+                'emit': true
+            },
+            child: null,
+            parent: null
+        },
+        {
+            id: '5',
+            module: {
+                name: 'transformuppercase',
+                'consume': true,
+                'emit': true
+            },
+            child: null,
+            parent: null
+        },
+        {
+            id: '6',
+            module: {
+                name: 'transformuppercase',
+                'consume': true,
+                'emit': true
+            },
+            child: null,
+            parent: null
+        }
+    ],
+    set: function(parent, child) {
+        parent.child = child;
+        child.parent = parent;
+        $(document).ready(function() {
+            $('.collapsible').collapsible();
+            $('.dropdown-button').dropdown({
+                inDuration: 300,
+                outDuration: 225,
+                constrainWidth: false, // Does not change width of dropdown to that of the activator
+                hover: false, // Activate on hover
+                gutter: 0, // Spacing from edge
+                belowOrigin: false, // Displays dropdown below the button
+                alignment: 'left', // Displays dropdown with edge aligned to the left of button
+                stopPropagation: false // Stops event propagation
+            });
+        });
+    },
+    submit: function() {
+        var i = rootNode;
+        var list = [i];
+        while ((i = i.child) != rootNode) {
+            list.add[i];
+        }
+        console.log(JSON.stringify(list));
+        socket.emit('updatecontainer', JSON.stringify(list));
+
+    }
+}
+var app = new Vue({
+    el: '#app',
+    data: bind
+});
+
+// };

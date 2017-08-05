@@ -2,6 +2,8 @@ var socket = require('socket.io-client')('http://socketserver:8080');
 
 const LISTEN = process.env.LISTEN;
 const ID = process.env.ID;
+// const ID = "2";
+// const LISTEN = "1";
 
 console.log("TRANSFORM UPPERCASE");
 
