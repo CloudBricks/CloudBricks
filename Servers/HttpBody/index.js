@@ -2,9 +2,10 @@ const uuid = require('uuid/v4');
 const app = require('express')();
 const bodyparser = require('body-parser');
 const server = require('http').Server(app);
-var socket = require('socket.io-client')('http://localhost:9092');
+var socket = require('socket.io-client')('http://socketserver:8080');
 server.listen(8080);
 
+console.log("HTTP BODY");
 
 const ID = process.env.ID;
 const LISTEN = process.env.LISTEN;

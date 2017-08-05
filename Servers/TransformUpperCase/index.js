@@ -1,9 +1,9 @@
-var socket = require('socket.io-client')('http://localhost:9092');
+var socket = require('socket.io-client')('http://socketserver:8080');
 
 const LISTEN = process.env.LISTEN;
 const ID = process.env.ID;
 
-
+console.log("TRANSFORM UPPERCASE");
 
 socket.on('connect', function() {
     console.log('Connected');
