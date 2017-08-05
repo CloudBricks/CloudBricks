@@ -7,7 +7,9 @@ const ID = process.env.ID;
 
 socket.on('connect', function() {
     console.log('Connected');
-
+});
+socket.on('disconnect', function() {
+    console.log('disconnected');
 });
 
 function recursivelyUppercase(data, id) {
@@ -24,12 +26,7 @@ function recursivelyUppercase(data, id) {
 }
 
 socket.on(LISTEN, function(data) {
-    console.log("New event " + data);
+    console.log("New event " + JSON.stringify(data));
     recursivelyUppercase(data, 'content');
     socket.emit('messageevent', { tag: ID, content: data, metadata: data.metadata });
-});
-
-
-socket.on('disconnect', function() {
-    console.log('disconnected');
 });
