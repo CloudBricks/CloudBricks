@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Scratch Docker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+
+    <link rel="stylesheet" href="index.css">
+    <script src="https://unpkg.com/vue"></script>
+
+
+</head>
+
+<body>
+    <div class='container'>
+        <h3 class='center'>Create your docker stack</h3>
+        <div id="app">
+            <ul class="collapsible" data-collapsible="expandable">
+                <li>
+                    <div class="collapsible-header">{{rootNode.module.name}}{{rootNode.id}}</div>
+                    <div class="collapsible-body">
+                        <ul class="collapsible" data-collapsible="expandable" v-if='rootNode.child'>
+                            <module v-bind:instance='rootNode.child' v-bind:instances='instances' v-bind:set='set'>
+                            </module>
+                        </ul>
+                        <div v-if='!rootNode.child' v-on:click='rootNode.addChild = true'>
+                            <!-- Dropdown Trigger -->
+                            <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Add Consumer</a>
+
+                            <!-- Dropdown Structure -->
+                            <ul id='dropdown1' class='dropdown-content'>
+                                <li v-for="instance in instances" v-if="instance.id!=rootNode.id" v-on:click="set(rootNode,instance)">{{instance.module.name}}{{instance.id}}</li>
+                            </ul>
+
+
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+
+            <a class="waves-effect waves-light btn" v-on:click='submit()'>Submit</a>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>

@@ -6,9 +6,10 @@ var socket = require('socket.io-client')('http://localhost:9092');
 server.listen(8080);
 
 
-const ID = process.env.ID;
-const LISTEN = process.env.LISTEN;
-
+// const ID = process.env.ID;
+// const LISTEN = process.env.LISTEN;
+const ID = "1";
+const LISTEN = "2";
 const currentRequests = {};
 
 socket.on('connect', function() {

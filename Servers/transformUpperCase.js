@@ -1,8 +1,9 @@
 var socket = require('socket.io-client')('http://localhost:9092');
 
-const LISTEN = process.env.LISTEN;
-const ID = process.env.ID;
-
+// const LISTEN = process.env.LISTEN;
+// const ID = process.env.ID;
+const ID = "2";
+const LISTEN = "1";
 
 
 socket.on('connect', function() {
