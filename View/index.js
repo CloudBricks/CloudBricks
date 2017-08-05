@@ -25,7 +25,7 @@ Vue.component('task-list', {
                         title: this.newTask,
                         id: this.tasks.length,
                         bind: {
-                            concat: "Append"
+                            concat: "What do you want to concatenate?"
                         }
                     });
                 } else {
