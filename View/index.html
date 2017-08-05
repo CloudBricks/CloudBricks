@@ -41,6 +41,7 @@
                             <option value="touppercaseserver">To Uppercase Server</option>
                             <option value="router">Router(unimplemented)</option>
                             <option value="math">Math(unimplemented)</option>
+                            <option value="concat">Concat</option>
                           </select>
                       <span class="input-group-button">
                         <button @click="addTask"
@@ -78,7 +79,12 @@
     <template id="task-item">
                   <li class="tasks__item">
                       {{ task.title }}
-                    </button>
+                      <div class="input-field" style="width:25%;" v-if="task.title==='concat'">
+                          <input placeholder="What to concatenate?" v-model='task.concat' type="text" class="validate">
+                          <!--<label for="first_name">First Name</label>-->
+                      </div>
+
+                      <!--<input type="text"  v-model="task.concat">-->
                     <button class="tasks__item__remove button alert pull-right"
                             @click="$emit('remove')"
                     >

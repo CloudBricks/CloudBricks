@@ -20,10 +20,21 @@ Vue.component('task-list', {
     methods: {
         addTask() {
             if (this.newTask) {
-                this.tasks.push({
-                    title: this.newTask,
-                    id: this.tasks.length
-                });
+                if (this.newTask === 'concat') {
+                    this.tasks.push({
+                        title: this.newTask,
+                        id: this.tasks.length,
+                        bind: {
+                            concat: "Append"
+                        }
+                    });
+                } else {
+                    this.tasks.push({
+                        title: this.newTask,
+                        id: this.tasks.length
+                    });
+                }
+
                 this.newTask = '';
             }
         },
