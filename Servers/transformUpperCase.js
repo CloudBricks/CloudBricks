@@ -9,9 +9,24 @@ socket.on('connect', function() {
     console.log('Connected');
 
 });
+
+function recursivelyUppercase(data, id) {
+    var it = data[id];
+    if (!it) {
+        return;
+    } else if (!it.toUpperCase) {
+        for (var key in it) {
+            recursivelyUppercase(it, key);
+        }
+    } else {
+        data[id] = it.toUpperCase();
+    }
+}
+
 socket.on(LISTEN, function(data) {
     console.log("New event " + data);
-    socket.emit('messageevent', { tag: ID, content: data.content.toUpperCase(), metadata: data.metadata });
+    recursivelyUppercase(data, 'content');
+    socket.emit('messageevent', { tag: ID, content: data, metadata: data.metadata });
 });
 
 
